@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "baml-neo4j-fastapi"
+version = "0.1.0"
+description = ""
+authors = ["jalakoo <jalakoo@gmail.com>"]
+readme = "README.md"
+packages = [
+    { include = "fast_api_starter", from = "." }
+]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi = "^0.115.0"
+uvicorn = {extras = ["standard"], version = "^0.31.0"}
+baml-py = "^0.65.0"
+python-dotenv = "^1.0.1"
+html2text = "^2024.2.26"
+requests = "^2.32.3"
+neo4j = "^5.25.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
