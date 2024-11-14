@@ -3,7 +3,8 @@ import os
 from baml_client import b
 from baml_client.types import Message, Role
 from fastapi.responses import StreamingResponse
-from .cytoscape2neo4j import upload_cytoscape_to_neo4j
+from .cytoscape2neo4j import upload_cytoscape_to_neo4j, download_neo4j_to_cytoscape
+from typing import List
 import asyncio
 import requests
 import html2text
@@ -14,6 +15,11 @@ from dotenv import load_dotenv
 load_dotenv()
 
 app = FastAPI()
+
+
+@app.get("/")
+async def root():
+    return {"message": "BAML + Neo4j Server running"}
 
 
 @app.post("/url_agenda")
@@ -98,6 +104,20 @@ async def extract_url_of_agenda_content(urls: list[str]):
 
     finished = upload_cytoscape_to_neo4j(json_dict)
     return {"finished": finished}
+
+
+@app.post("/neo4j_to_cytoscape")
+async def download_graph_from_neo4j(
+    nodes: List[str],
+    relationships: List[str],
+):
+    """Download a graph from Neo4j and convert it to Cytoscape format"""
+
+    json_output = download_neo4j_to_cytoscape(
+        node_labels=nodes, relationship_types=relationships
+    )
+
+    return json_output
 
 
 @app.get("/resume_to_graph")
