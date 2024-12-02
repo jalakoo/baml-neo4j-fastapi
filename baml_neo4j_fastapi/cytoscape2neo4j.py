@@ -3,6 +3,7 @@ from neo4j.graph import Relationship, Node
 from typing import Optional, List
 import json
 import os
+import logging
 
 
 def upload_cytoscape_to_neo4j(
@@ -35,6 +36,10 @@ def upload_cytoscape_to_neo4j(
         raise ValueError("NEO4J_URI is required")
     if neo4j_password is None:
         raise ValueError("NEO4J_PASSWORD is required")
+
+    nodes = cytoscape_data.get("elements", {}).get("nodes", [])
+    edges = cytoscape_data.get("elements", {}).get("edges", [])
+    logging.info(f"Uploading {len(nodes)} nodes and {len(edges)} edges...")
 
     try:
         # Connect to Neo4j using a context manager
@@ -76,6 +81,8 @@ def upload_cytoscape_to_neo4j(
                     parameters_={"id": node_id, "properties": properties},
                 )
 
+            logging.info(f"Created {len(nodes)} nodes")
+
             # Create relationships
             for edge in edges:
                 edge_data = edge.get("data", {})
@@ -105,6 +112,9 @@ def upload_cytoscape_to_neo4j(
                         "properties": properties,
                     },
                 )
+
+            logging.info(f"Created {len(edges)} relationships")
+
             return True
     except Exception as e:
         print(f"Error uploading Cytoscape data to Neo4j: {str(e)}")

@@ -19,7 +19,7 @@ class Company{
 function ExtractEvents(raw_text: string) -> Event[] {
   client GPT4o
   prompt #"
-    Parse the following content and extract ALL events.
+    Parse the following content and extract the first 12 events.
 
     Content:
     ---

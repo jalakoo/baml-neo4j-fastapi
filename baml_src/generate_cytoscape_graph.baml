@@ -1,5 +1,3 @@
-
-
 class CytoscapeJSON {
   elements Elements
 }
@@ -15,17 +13,6 @@ class CytoscapeNode {
   "#)
 }
 
-// class CytoscapeNodeData{
-//     id string @description(#"
-//     A unique human-readable identifier for the vertex, like 'peter_smith'
-//   "#)
-//   label string @description(#"
-//     A human-readable label for the Node, like 'Person' or 'Company', etc..
-//     "#)
-//     name string @description(#"
-//         A human-readable name for the Node, like 'Peter Smith' or 'Acme Corp', etc..
-//     "#)
-// }
 
 class CytoscapeEdge {
     data CytoscapeEdgeData
@@ -45,7 +32,6 @@ target string @description(#"
 }
 
 // This function jumps straight into generating the graph from a text or image input (like pdf page).
-// TODO: Add example input - outputs
 function GenerateCytoscapeGraph(input: string | image) -> CytoscapeJSON {
   client "openai/gpt-4o-mini"
   prompt #"
@@ -56,8 +42,7 @@ function GenerateCytoscapeGraph(input: string | image) -> CytoscapeJSON {
 
     INPUT:
     {{ input }}`
-  "#
-    
+  "#   
 }
 
 // This function extracts the json from a text or image input (like pdf page).
