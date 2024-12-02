@@ -14,11 +14,18 @@ Ensure your `settings.json` has:
 }
 ```
 
+## Update BAML
+
+1. Run `poetry run baml-cli generate`
+
+## Running
+
 1. Run `poetry install`
-2. Add your env vars to a .env.sample file, then rename to .env
-3. Run `poetry run baml-cli generate` to create/update baml client files
-4. Run `poetry run uvicorn baml_neo4j_fastapi.app:app --reload`
-5. Curl the endpoint to test:
+2. Copy the .env.sample file to .env
+3. Add your OpenAI and Neo4j credentials to the .env file
+4. Run `poetry run baml-cli generate` to create/update baml client files
+5. Run `poetry run uvicorn baml_neo4j_fastapi.app:app --reload`
+6. Curl the endpoint to test:
    ```
    curl -X GET -H "Content-Type: application/json" http://localhost:8000/resume_to_graph
    ```
