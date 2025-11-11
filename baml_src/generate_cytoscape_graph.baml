@@ -33,7 +33,7 @@ target string @description(#"
 
 // This function jumps straight into generating the graph from a text or image input (like pdf page).
 function GenerateCytoscapeGraph(input: string | image) -> CytoscapeJSON {
-  client "openai/gpt-4o-mini"
+  client SambaNova
   prompt #"
     You're an expert at graph data analytics and visualizations.
     Create a graph visualization of all important nodes and relationships (edges) for the given input.
@@ -48,7 +48,7 @@ function GenerateCytoscapeGraph(input: string | image) -> CytoscapeJSON {
 // This function extracts the json from a text or image input (like pdf page).
 // You can chain this function to the previous one.
 function ExtractJsonFromText(input: string | image) -> string {
-  client "openai/gpt-4o-mini"
+  client SambaNova
   prompt #"
     Extract the data from this INPUT in JSON format.
 
@@ -58,7 +58,7 @@ function ExtractJsonFromText(input: string | image) -> string {
 }
 
 test TestCytoscapeName {
-  functions [GenerateGraph, ExtractJsonFromText]
+  functions [GenerateCytoscapeGraph, ExtractJsonFromText]
   args {
     input #"
       With First Fridays and Second Thursdays, Central District and Capitol Hill lovers of painting, photography, sculpture, and community now have two nights a month to mark on the calendar.

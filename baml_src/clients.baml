@@ -1,3 +1,13 @@
+client<llm> SambaNova {
+  provider openai-generic
+  options {
+    base_url "https://api.sambanova.ai/v1"
+    model env.SAMBANOVA_LLM_MODEL
+    api_key env.SAMBANOVA_API_KEY
+  }
+}
+
+
 client<llm> GPT4 {
   provider openai
   options {

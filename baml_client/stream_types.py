@@ -12,153 +12,119 @@
 
 import typing
 import typing_extensions
-from enum import Enum
-
-
 from pydantic import BaseModel, ConfigDict
-
 
 import baml_py
 
-CheckT = typing_extensions.TypeVar('CheckT')
-CheckName = typing_extensions.TypeVar('CheckName', bound=str)
+from . import types
 
-class Check(BaseModel):
-    name: str
-    expression: str
-    status: str
-class Checked(BaseModel, typing.Generic[CheckT, CheckName]):
-    value: CheckT
-    checks: typing.Dict[CheckName, Check]
-
-def get_checks(checks: typing.Dict[CheckName, Check]) -> typing.List[Check]:
-    return list(checks.values())
-
-def all_succeeded(checks: typing.Dict[CheckName, Check]) -> bool:
-    return all(check.status == "succeeded" for check in get_checks(checks))
-# #########################################################################
-# Generated enums (3)
-# #########################################################################
-
-class Category(str, Enum):
-    Refund = "Refund"
-    CancelOrder = "CancelOrder"
-    TechnicalSupport = "TechnicalSupport"
-    AccountIssue = "AccountIssue"
-    Question = "Question"
-
-class MyEnum(str, Enum):
-    VALUE1 = "VALUE1"
-    VALUE2 = "VALUE2"
-    VALUE3 = "VALUE3"
-
-class Role(str, Enum):
-    Customer = "Customer"
-    Assistant = "Assistant"
-
+StreamStateValueT = typing.TypeVar('StreamStateValueT')
+class StreamState(BaseModel, typing.Generic[StreamStateValueT]):
+    value: StreamStateValueT
+    state: typing_extensions.Literal["Pending", "Incomplete", "Complete"]
 # #########################################################################
 # Generated classes (23)
 # #########################################################################
 
 class Answer(BaseModel):
     answersInText: typing.List["Citation"]
-    answer: str
+    answer: typing.Optional[str] = None
 
 class BookAnalysis(BaseModel):
     bookNames: typing.List[str]
     popularityOverTime: typing.List["PopularityOverTime"]
 
 class CharacterDescription(BaseModel):
-    name: str
+    name: typing.Optional[str] = None
     clothingItems: typing.List[str]
     hairColor: typing.Optional[str] = None
-    smellDescription: str
+    smellDescription: typing.Optional[str] = None
     spells: typing.List["Spells"]
 
 class Citation(BaseModel):
-    documentTitle: str
-    sourceLink: str
-    relevantTextFromDocument: str
-    number: int
+    documentTitle: typing.Optional[str] = None
+    sourceLink: typing.Optional[str] = None
+    relevantTextFromDocument: typing.Optional[str] = None
+    number: typing.Optional[int] = None
 
 class Company(BaseModel):
-    name: str
+    name: typing.Optional[str] = None
 
 class Context(BaseModel):
     documents: typing.List["Document"]
 
 class CytoscapeEdge(BaseModel):
-    data: "CytoscapeEdgeData"
+    data: typing.Optional["CytoscapeEdgeData"] = None
 
 class CytoscapeEdgeData(BaseModel):
-    id: str
-    source: str
-    target: str
-    label: str
+    id: typing.Optional[str] = None
+    source: typing.Optional[str] = None
+    target: typing.Optional[str] = None
+    label: typing.Optional[str] = None
 
 class CytoscapeJSON(BaseModel):
-    elements: "Elements"
+    elements: typing.Optional["Elements"] = None
 
 class CytoscapeNode(BaseModel):
     data: typing.Dict[str, str]
 
 class Document(BaseModel):
-    title: str
-    text: str
-    link: str
+    title: typing.Optional[str] = None
+    text: typing.Optional[str] = None
+    link: typing.Optional[str] = None
 
 class DynamicOutput(BaseModel):
     model_config = ConfigDict(extra='allow')
 
 class Education(BaseModel):
-    school: str
-    degree: str
-    year: int
+    school: typing.Optional[str] = None
+    degree: typing.Optional[str] = None
+    year: typing.Optional[int] = None
 
 class Elements(BaseModel):
     nodes: typing.List["CytoscapeNode"]
     edges: typing.List["CytoscapeEdge"]
 
 class Event(BaseModel):
-    name: str
-    description: str
-    link: str
-    speaker: "Speaker"
-    datetime: str
+    name: typing.Optional[str] = None
+    description: typing.Optional[str] = None
+    link: typing.Optional[str] = None
+    speaker: typing.Optional["Speaker"] = None
+    datetime: typing.Optional[str] = None
 
 class Message(BaseModel):
-    role: Role
-    content: str
+    role: typing.Optional[types.Role] = None
+    content: typing.Optional[str] = None
 
 class PopularityOverTime(BaseModel):
-    bookName: str
+    bookName: typing.Optional[str] = None
     scores: typing.List["Score"]
 
 class Ranking(BaseModel):
-    bookName: str
-    score: int
+    bookName: typing.Optional[str] = None
+    score: typing.Optional[int] = None
 
 class Resume(BaseModel):
-    name: str
+    name: typing.Optional[str] = None
     education: typing.List["Education"]
     skills: typing.List[str]
 
 class Score(BaseModel):
-    year: int
-    score: int
+    year: typing.Optional[int] = None
+    score: typing.Optional[int] = None
 
 class Speaker(BaseModel):
-    name: str
-    title: str
+    name: typing.Optional[str] = None
+    title: typing.Optional[str] = None
     company: typing.Optional["Company"] = None
 
 class Spells(BaseModel):
-    name: str
-    description: str
+    name: typing.Optional[str] = None
+    description: typing.Optional[str] = None
 
 class WordCount(BaseModel):
-    bookName: str
-    count: int
+    bookName: typing.Optional[str] = None
+    count: typing.Optional[int] = None
 
 # #########################################################################
 # Generated type aliases (0)

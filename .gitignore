@@ -122,3 +122,6 @@ google-services.json
 # FastAPI specific
 *.db
 *.sqlite3
+
+# OS
+.DS_Store

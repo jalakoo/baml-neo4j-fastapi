@@ -17,7 +17,7 @@ class Company{
 }
 
 function ExtractEvents(raw_text: string) -> Event[] {
-  client GPT4o
+  client SambaNova
   prompt #"
     Parse the following content and extract the first 12 events.
 
